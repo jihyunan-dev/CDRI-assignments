@@ -1,11 +1,15 @@
+import { BrowserRouter } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RootRouter } from './routes/RootRouter';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div>CDRI 과제</div>
+      <BrowserRouter>
+        <RootRouter />
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
