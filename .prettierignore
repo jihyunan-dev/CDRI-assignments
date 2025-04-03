@@ -1,0 +1,24 @@
+# public
+/public
+
+# 빌드 파일
+/dist
+
+# git
+.gitignore
+
+# packages
+node_modules
+
+# prettier 설정
+.pretteirrc.json
+
+# eslint 설정
+.eslintrc.json
+.eslintignore
+
+# 환경 변수
+.env.*
+
+# html
+*.html
