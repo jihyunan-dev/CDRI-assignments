@@ -74,4 +74,11 @@ const getButtonStyle = ({ color, size, width }: { color: ButtonColor; size: Butt
     padding: 0 20px;
     font-size: 16px;
   `}
+
+  &:disabled {
+    color: var(--text-subtitle);
+    background-color: var(--palette-light-gray);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;

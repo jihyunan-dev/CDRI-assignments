@@ -1,7 +1,6 @@
 import { BookListCount } from '@/components/BookListCount';
-import { Button } from '@/components/Button';
+import { PageController } from '@/components/PageController';
 import { Stack } from '@/components/Stack';
-import { Typography } from '@/components/Typography';
 import { BookListItem } from '@/components/bookListItem';
 import { PAGE_SIZE } from '@/constants/page';
 import { BookDocument, BookMeta } from '@/types/book';
@@ -34,15 +33,12 @@ export function BookList({ books, meta, currentPage, moveToPage }: BookListProps
           return <BookListItem key={book.isbn} book={book} />;
         })}
       </Stack>
-      <Stack justify="between" align="center" width="100%">
-        <Button key={'prev-button'} color="secondary" disabled={currentPage === 1} onClick={onClickPrevButton}>
-          이전 페이지
-        </Button>
-        <Typography.Caption>{currentPage} 페이지</Typography.Caption>
-        <Button key={'next-button'} color="secondary" onClick={onClickNextButton}>
-          다음 페이지
-        </Button>
-      </Stack>
+      <PageController
+        currentPage={currentPage}
+        lastPage={lastPage}
+        onClickPrevButton={onClickPrevButton}
+        onClickNextButton={onClickNextButton}
+      />
     </Stack>
   );
 }
