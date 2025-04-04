@@ -42,7 +42,7 @@ const getStackStyle = ({
   gap = 0,
   justify = 'start',
   align = 'start',
-  width = '100%',
+  width = 'auto',
 }: StackStyleProps) => css`
   display: flex;
   flex-direction: ${dir};
