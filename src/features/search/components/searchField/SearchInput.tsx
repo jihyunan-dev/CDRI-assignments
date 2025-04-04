@@ -10,6 +10,7 @@ export type SearchInputProps = {
 export function SearchInput({ submitValue, ...props }: SearchInputProps) {
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      if (e.nativeEvent.isComposing) return;
       const inputValue = e.currentTarget.value;
       if (!inputValue) return;
       submitValue?.(inputValue);
