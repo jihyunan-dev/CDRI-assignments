@@ -6,10 +6,9 @@ import { EmptyState } from '@/components/EmptyState';
 import { Page } from '@/components/Page';
 import { Stack } from '@/components/Stack';
 import { Typography } from '@/components/Typography';
+import { PAGE_SIZE } from '@/constants/page';
 import { BookList } from '@/features/search/components/BookList';
 import { SearchField } from '@/features/search/components/searchField';
-
-const PAGE_SIZE = 10;
 
 export function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,9 +22,11 @@ export function SearchPage() {
   const books = data?.documents ?? [];
   const bookMeta = data?.meta ?? null;
 
+  const moveToPage = (page: number) => setCurrentPage(page);
+
   const submitSearchValue = (value: string) => {
     setSearchValue(value);
-    setCurrentPage(1);
+    moveToPage(1);
   };
 
   return (
@@ -45,7 +46,7 @@ export function SearchPage() {
             <EmptyState message="검색된 결과가 없습니다." />
           </Stack>
         ) : (
-          <BookList books={books} meta={bookMeta} />
+          <BookList books={books} meta={bookMeta} currentPage={currentPage} moveToPage={moveToPage} />
         )}
       </Stack>
     </Page>
