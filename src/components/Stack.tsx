@@ -10,6 +10,7 @@ type StackStyleProps = {
   gap?: number;
   justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
   align?: 'start' | 'center' | 'end';
+  width?: string;
 };
 
 type StackProps<T extends ElementType> = {
@@ -25,21 +26,28 @@ export function Stack<T extends ElementType = 'div'>({
   gap,
   justify,
   align,
+  width,
   ...rest
 }: StackProps<T>) {
   const Tag = as || 'div';
   return (
-    <Tag css={getStackStyle({ dir, gap, justify, align })} {...rest}>
+    <Tag css={getStackStyle({ dir, gap, justify, align, width })} {...rest}>
       {children}
     </Tag>
   );
 }
 
-const getStackStyle = ({ dir = 'row', gap = 0, justify = 'start', align = 'start' }: StackStyleProps) => css`
+const getStackStyle = ({
+  dir = 'row',
+  gap = 0,
+  justify = 'start',
+  align = 'start',
+  width = '100%',
+}: StackStyleProps) => css`
   display: flex;
   flex-direction: ${dir};
   gap: ${gap}px;
   justify-content: ${justify};
   align-items: ${align};
-  width: 100%;
+  width: ${width};
 `;
