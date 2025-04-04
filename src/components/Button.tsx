@@ -35,6 +35,7 @@ const getButtonStyle = ({ color, size, width }: { color: ButtonColor; size: Butt
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   border: none;
   border-radius: 8px;
   font-weight: 500;
