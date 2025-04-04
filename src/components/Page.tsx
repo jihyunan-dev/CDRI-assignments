@@ -15,8 +15,9 @@ export function Page({ children }: PageProps) {
 }
 
 const style = ({ bgColor = 'white' }: { bgColor?: string }) => css`
-  margin-top: ${HEADER_HEIGHT}px;
   width: 100%;
+  margin-top: ${HEADER_HEIGHT}px;
+  padding-bottom: 72px;
   background-color: ${bgColor};
 
   .page-content {
