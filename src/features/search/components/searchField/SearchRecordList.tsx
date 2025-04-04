@@ -26,7 +26,7 @@ export function SearchRecordList({ searchRecords, deleteSearchRecord }: SearchRe
 
 function SearchListItem({ searchRecord, onDelete }: { searchRecord: SearchRecord; onDelete?(): void }) {
   return (
-    <Stack css={searchListItemStyle} as="li" align="center">
+    <Stack css={searchListItemStyle} as="li" align="center" width="100%">
       <Typography.Caption as="p" color="subtitle" className="searchListItem-text">
         {searchRecord.value}
       </Typography.Caption>

@@ -12,13 +12,12 @@ export function SearchInput({ submitValue, ...props }: SearchInputProps) {
     if (e.key === 'Enter') {
       if (e.nativeEvent.isComposing) return;
       const inputValue = e.currentTarget.value;
-      if (!inputValue) return;
       submitValue?.(inputValue);
     }
   };
 
   return (
-    <Stack align="center" gap={12} css={inputFieldStyle}>
+    <Stack align="center" width="100%" gap={12} css={inputFieldStyle}>
       <IconSearch />
       <input type="text" className="inputField-input" onKeyDown={onKeyDown} {...props} />
     </Stack>

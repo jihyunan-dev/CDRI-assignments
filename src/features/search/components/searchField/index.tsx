@@ -8,9 +8,11 @@ import { SearchRecord } from './type';
 
 const MAX_RECORD_NUM = 8;
 
-export type SearchFieldProps = SearchInputProps;
+export type SearchFieldProps = {
+  submitValue(value: string): void;
+} & SearchInputProps;
 
-export function SearchField({ ...props }: SearchFieldProps) {
+export function SearchField({ submitValue, ...props }: SearchFieldProps) {
   const [isListOpen, setIsListOpen] = useState(false);
 
   // TODO: 상태 기억하는 방향으로 변경예정
@@ -28,6 +30,7 @@ export function SearchField({ ...props }: SearchFieldProps) {
       }
       return newRecords;
     });
+    submitValue(newValue);
   };
 
   const deleteSearchRecord = (id: number) => {
@@ -36,7 +39,7 @@ export function SearchField({ ...props }: SearchFieldProps) {
 
   return (
     <>
-      <Stack dir="column" css={style} data-list-open={isListOpen}>
+      <Stack dir="column" width="100%" css={style} data-list-open={isListOpen}>
         <SearchInput {...props} onFocus={openList} submitValue={addSearchRecord} />
         {isListOpen && <SearchRecordList searchRecords={searchRecords} deleteSearchRecord={deleteSearchRecord} />}
       </Stack>
