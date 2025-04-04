@@ -37,6 +37,21 @@ export function Stack<T extends ElementType = 'div'>({
   );
 }
 
+const justifyMap = {
+  start: 'flex-start',
+  center: 'center',
+  end: 'flex-end',
+  between: 'space-between',
+  around: 'space-around',
+  evenly: 'space-evenly',
+};
+
+const alignMap = {
+  start: 'flex-start',
+  center: 'center',
+  end: 'flex-end',
+};
+
 const getStackStyle = ({
   dir = 'row',
   gap = 0,
@@ -47,7 +62,7 @@ const getStackStyle = ({
   display: flex;
   flex-direction: ${dir};
   gap: ${gap}px;
-  justify-content: ${justify};
-  align-items: ${align};
+  justify-content: ${justifyMap[justify]};
+  align-items: ${alignMap[align]};
   width: ${width};
 `;
