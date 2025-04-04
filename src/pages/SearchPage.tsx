@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { listBooks } from '@/apis/listBooks';
-import { Button } from '@/components/Button';
 import { EmptyState } from '@/components/EmptyState';
 import { Page } from '@/components/Page';
 import { Stack } from '@/components/Stack';
@@ -9,14 +8,23 @@ import { Typography } from '@/components/Typography';
 import { PAGE_SIZE } from '@/constants/page';
 import { BookList } from '@/features/search/components/BookList';
 import { SearchField } from '@/features/search/components/searchField';
+import { SearchPopup } from '@/features/search/components/searchPopup';
+import { BookSearchTarget } from '@/types/book';
 
 export function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchInfo, setSearchInfo] = useState<{ target: BookSearchTarget; value: string }>({
+    target: BookSearchTarget.Title,
+    value: '',
+  });
 
   const { data } = useQuery({
-    queryKey: ['books', searchValue, currentPage], // option 포함
-    queryFn: () => listBooks({ searchValue, options: { page: currentPage, size: PAGE_SIZE } }),
+    queryKey: ['books', searchInfo.value, searchInfo.target, currentPage], // option 포함
+    queryFn: () =>
+      listBooks({
+        searchValue: searchInfo.value,
+        options: { page: currentPage, size: PAGE_SIZE, target: searchInfo.target },
+      }),
   });
 
   const books = data?.documents ?? [];
@@ -24,8 +32,8 @@ export function SearchPage() {
 
   const moveToPage = (page: number) => setCurrentPage(page);
 
-  const submitSearchValue = (value: string) => {
-    setSearchValue(value);
+  const submitSearchValue = (target: BookSearchTarget, value: string) => {
+    setSearchInfo({ target, value });
     moveToPage(1);
   };
 
@@ -35,10 +43,11 @@ export function SearchPage() {
         <Stack as="section" dir="column" gap={16} width="568px">
           <Typography.Title type="title2">도서 검색</Typography.Title>
           <Stack width="100%" align="center" gap={16}>
-            <SearchField placeholder="검색어를 입력하세요" submitValue={submitSearchValue} />
-            <Button size="small" color="outline">
-              상세검색
-            </Button>
+            <SearchField
+              placeholder="검색어를 입력하세요"
+              submitValue={(v) => submitSearchValue(BookSearchTarget.Title, v)}
+            />
+            <SearchPopup submitValue={submitSearchValue} />
           </Stack>
         </Stack>
         {books.length === 0 ? (
