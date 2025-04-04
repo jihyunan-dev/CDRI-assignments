@@ -11,7 +11,7 @@ type SearchRecordListProps = {
 
 export function SearchRecordList({ searchRecords, deleteSearchRecord }: SearchRecordListProps) {
   return (
-    <Stack css={searchListStyle} as="ul" dir="column">
+    <Stack css={searchListStyle} as="ul" dir="column-reverse">
       {searchRecords.length === 0 && (
         <Stack align="center" justify="center" css={{ height: '100%' }}>
           <Typography.Caption color="subtitle">최근 검색어가 없습니다.</Typography.Caption>
