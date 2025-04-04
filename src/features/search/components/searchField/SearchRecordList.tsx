@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import IconClose from '@/assets/icon-close.svg?react';
 import { Stack } from '@/components/Stack';
 import { Typography } from '@/components/Typography';
-import { SearchRecord } from './type';
+import { SearchRecord } from '@/types/searchRecord';
 
 type SearchRecordListProps = {
   searchRecords: SearchRecord[];
