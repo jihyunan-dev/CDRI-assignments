@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 import { css } from '@emotion/react';
+import { Stack } from './Stack';
 
 type ButtonColor = 'primary' | 'secondary' | 'outline';
 type ButtonSize = 'small' | 'large';
@@ -8,13 +9,24 @@ export type ButtonProps = {
   color?: ButtonColor;
   size?: ButtonSize;
   width?: string;
+  rightSlot?: React.ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-// TODO: RightSlot 추가 (아이콘 영역)
-export function Button({ size = 'large', color = 'primary', width, type, children, ...props }: ButtonProps) {
+export function Button({
+  size = 'large',
+  color = 'primary',
+  width,
+  type,
+  rightSlot = null,
+  children,
+  ...props
+}: ButtonProps) {
   return (
     <button css={getButtonStyle({ color, size, width })} {...props}>
-      {children}
+      <Stack justify="center" align="center" gap={4}>
+        {children}
+        {rightSlot}
+      </Stack>
     </button>
   );
 }
@@ -28,6 +40,7 @@ const getButtonStyle = ({ color, size, width }: { color: ButtonColor; size: Butt
   font-weight: 500;
   cursor: pointer;
   width: ${width || 'auto'};
+  line-height: 1;
 
   ${color === 'primary' &&
   css`
