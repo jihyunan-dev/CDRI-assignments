@@ -33,7 +33,7 @@ export function SearchPage() {
     <Page>
       <Stack dir="column" gap={24} width="100%">
         <Stack as="section" dir="column" gap={16} width="568px">
-          <Typography.Title type="title1">도서 검색</Typography.Title>
+          <Typography.Title type="title2">도서 검색</Typography.Title>
           <Stack width="100%" align="center" gap={16}>
             <SearchField placeholder="검색어를 입력하세요" submitValue={submitSearchValue} />
             <Button size="small" color="outline">
