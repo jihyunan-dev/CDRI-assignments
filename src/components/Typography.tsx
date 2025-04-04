@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { ComponentPropsWithoutRef, ElementType, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 
 type TypographyColor = 'primary' | 'secondary' | 'subtitle';
@@ -25,18 +25,27 @@ const getTitleStyle = ({ titleLevel, color }: { titleLevel: 1 | 2 | 3; color: Ty
   color: var(--text-${color});
 `;
 
-type TypographyBodyProps = {
+type TypographyBodyProps<T extends ElementType> = {
+  as?: T;
   type: 'body1' | 'body2';
   weight?: 'medium' | 'bold';
   color?: TypographyColor;
-} & HTMLAttributes<HTMLSpanElement>;
+} & ComponentPropsWithoutRef<T>;
 
-function Body({ type, weight = 'medium', color = 'primary', children, ...props }: TypographyBodyProps) {
+function Body<T extends ElementType>({
+  as,
+  type,
+  weight = 'medium',
+  color = 'primary',
+  children,
+  ...props
+}: TypographyBodyProps<T>) {
   const bodyLevel = type === 'body1' ? 1 : 2;
+  const Tag = as || 'p';
   return (
-    <span css={getBodyStyle({ bodyLevel, weight, color })} {...props}>
+    <Tag css={getBodyStyle({ bodyLevel, weight, color })} {...props}>
       {children}
-    </span>
+    </Tag>
   );
 }
 
@@ -55,15 +64,17 @@ const getBodyStyle = ({
   color: var(--text-${color});
 `;
 
-type TypographyCaptionProps = {
+type TypographyCaptionProps<T extends ElementType> = {
+  as?: T;
   color?: TypographyColor;
-} & HTMLAttributes<HTMLSpanElement>;
+} & ComponentPropsWithoutRef<T>;
 
-function Caption({ color = 'primary', children, ...props }: TypographyCaptionProps) {
+function Caption<T extends ElementType>({ as, color = 'primary', children, ...props }: TypographyCaptionProps<T>) {
+  const Tag = as || 'p';
   return (
-    <span css={getCaptionStyle({ color })} {...props}>
+    <Tag css={getCaptionStyle({ color })} {...props}>
       {children}
-    </span>
+    </Tag>
   );
 }
 const getCaptionStyle = ({ color }: { color: TypographyColor }) => css`
@@ -73,15 +84,17 @@ const getCaptionStyle = ({ color }: { color: TypographyColor }) => css`
   color: var(--text-${color});
 `;
 
-type TypographySmallProps = {
+type TypographySmallProps<T extends ElementType> = {
+  as?: T;
   color?: TypographyColor;
-} & HTMLAttributes<HTMLSpanElement>;
+} & ComponentPropsWithoutRef<T>;
 
-function Small({ color = 'primary', children, ...props }: TypographySmallProps) {
+function Small<T extends ElementType>({ as, color = 'primary', children, ...props }: TypographySmallProps<T>) {
+  const Tag = as || 'p';
   return (
-    <span css={getSmallStyle({ color })} {...props}>
+    <Tag css={getSmallStyle({ color })} {...props}>
       {children}
-    </span>
+    </Tag>
   );
 }
 
