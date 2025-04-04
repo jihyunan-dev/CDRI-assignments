@@ -1,20 +1,25 @@
 import { css } from '@emotion/react';
 import IconHeartFill from '@/assets/icon-heart-fill.svg?react';
 import IconHeartLine from '@/assets/icon-heart-line.svg?react';
+import { useLikeStore } from '@/store/useLikeStore';
 import { useBookListItemContext } from './context';
 
 export function BookThumbnail() {
-  const {
-    isOpen,
-    book: { title, thumbnail },
-  } = useBookListItemContext();
+  const { isOpen, book } = useBookListItemContext();
+  const { title, thumbnail, isbn } = book;
 
   const size = isOpen ? 'large' : 'small';
   const iconSize = size === 'small' ? 16 : 24;
 
-  // TODO: 실제 로직으로 변경하기
-  const isLiked = false;
-  const clickLikeButton = () => {};
+  const likeStore = useLikeStore();
+  const isLiked = likeStore.isLike(isbn);
+  const clickLikeButton = () => {
+    if (isLiked) {
+      likeStore.removeLike(isbn);
+    } else {
+      likeStore.addLike(book);
+    }
+  };
 
   return (
     <div data-size={size} css={style}>
