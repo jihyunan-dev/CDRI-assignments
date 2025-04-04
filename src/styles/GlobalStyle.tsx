@@ -31,6 +31,10 @@ export function GlobalStyle() {
           --typo-small-line-height: 10px;
         }
 
+        * {
+          box-sizing: border-box;
+        }
+
         html,
         body,
         div,
