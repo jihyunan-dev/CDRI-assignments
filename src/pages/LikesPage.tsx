@@ -2,32 +2,20 @@ import { useState } from 'react';
 import { BookListCount } from '@/components/BookListCount';
 import { EmptyState } from '@/components/EmptyState';
 import { Page } from '@/components/Page';
-import { PageController } from '@/components/PageController';
 import { Stack } from '@/components/Stack';
 import { Typography } from '@/components/Typography';
-import { BookListItem } from '@/components/bookListItem';
 import { PAGE_SIZE } from '@/constants/page';
+import { LikesBookList } from '@/features/likes/components/LikesBookList';
 import { useLikeStore } from '@/store/useLikeStore';
 
 export function LikesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const { likes } = useLikeStore();
+
   const totalLikes = likes.length;
-
   const lastPage = Math.ceil(totalLikes / PAGE_SIZE);
-  const books = likes.slice((currentPage - 1) * 10, currentPage * 10);
 
-  const moveToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const moveToNextPage = () => {
-    if (currentPage < lastPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  const moveToPage = (page: number) => setCurrentPage(page);
 
   return (
     <Page>
@@ -40,19 +28,9 @@ export function LikesPage() {
               <EmptyState message="찜한 책이 없습니다." />
             </Stack>
           ) : (
-            <Stack dir="column">
-              {books.map((book) => (
-                <BookListItem key={`like-${book.isbn}`} book={book} />
-              ))}
-            </Stack>
+            <LikesBookList currentPage={currentPage} lastPage={lastPage} books={likes} moveToPage={moveToPage} />
           )}
         </Stack>
-        <PageController
-          currentPage={currentPage}
-          lastPage={lastPage}
-          onClickPrevButton={moveToPrevPage}
-          onClickNextButton={moveToNextPage}
-        />
       </Stack>
     </Page>
   );
