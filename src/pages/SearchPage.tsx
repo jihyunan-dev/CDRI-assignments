@@ -6,6 +6,7 @@ import { Page } from '@/components/Page';
 import { Stack } from '@/components/Stack';
 import { Typography } from '@/components/Typography';
 import { PAGE_SIZE } from '@/constants/page';
+import { QUERY_KEYS_FNS } from '@/constants/queryKeys';
 import { BookList } from '@/features/search/components/BookList';
 import { SearchField } from '@/features/search/components/searchField';
 import { SearchPopup } from '@/features/search/components/searchPopup';
@@ -19,7 +20,7 @@ export function SearchPage() {
   });
 
   const { data } = useQuery({
-    queryKey: ['books', searchInfo.value, searchInfo.target, currentPage], // option 포함
+    queryKey: QUERY_KEYS_FNS.listBooks(searchInfo.value, currentPage, PAGE_SIZE, searchInfo.target),
     queryFn: () =>
       listBooks({
         searchValue: searchInfo.value,
